@@ -14,25 +14,21 @@
             die("<h1 id=fehler>Verbindung mit Server fehlgeschlagen</h1>");
         }
         $esc = mysqli_real_escape_string($conn, $_GET['query']);
-        $select = 'langer Text :);';
-        $query = sprintf($select, $esc);
+        $sql = 'langer Text :)"%s";';
+        $query = sprintf($sql, $esc);
         $ergebnis = mysqli_query($conn, $query);
     ?>
 
     <table border = "1">
-        <tr>
-            <th>1000</th>
-            <th>mal</th>
-            <th>berührt</th>
-        </tr>
         <?php
             while($reihe = mysqli_fetch_assoc($ergebnis)){
                 echo "<tr>";
                 echo "<td>".$reihe['id']."</td>";
                 echo "</tr>";
             }
+            mysqli_free_result($result);
+            mysqli_close($link);
         ?>
     </table>
-    
 </body>
 </html>
